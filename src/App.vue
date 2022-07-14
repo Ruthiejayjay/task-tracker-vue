@@ -1,65 +1,51 @@
 <template>
- <div class="container">
-  <Header title="Task Tracker" />
-  <Tasks @delete-task="deleteTask" :tasks="tasks" />
- </div>
-  
+  <div class="container">
+    <Header
+      @toggle-add-task="toggleAddTask"
+      title="Task Tracker"
+      :showAddTask="showAddTask"
+    />
+    
+    <router-view :showAddTask="showAddTask"></router-view>
+    <Footer />
+  </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Tasks from './components/Tasks.vue'
+import Header from "./components/Header.vue";
 
+import Footer from "./components/Footer.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header,
-    Tasks
+    Footer
   },
   data() {
     return {
-      tasks: []
-    }
+
+      showAddTask: false,
+    };
   },
   methods: {
-    deleteTask(id) {
-      console.log('task', id);
-    }
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask;
+    },
+
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1, 
-        text: 'Doctors Appointment',
-        day: 'March 1st at 2:30pm',
-        reminder: true,
-      },
-      {
-        id: 2, 
-        text: 'Meeting at School',
-        day: 'March 3rd at 2:30pm',
-        reminder: true,
-      },
-      {
-        id: 3, 
-        text: 'Food Shopping',
-        day: 'March 3rd at 11:00am',
-        reminder: false,
-      },
-    ]
-  }
-}
+
+};
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 .container {
   max-width: 500px;
